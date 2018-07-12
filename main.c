@@ -27,8 +27,8 @@ enum
   COL_RE,
   NUM_COLS
 };
-static GtkTreeModel * create_and_fill_model (void)
-{
+
+static GtkTreeModel * create_and_fill_model (void) {
   GtkListStore *store;
   GtkTreeIter iter;
   int max_rows = 0;
@@ -36,15 +36,14 @@ static GtkTreeModel * create_and_fill_model (void)
   tiposorteo *vectorsorteos;
   vectorsorteos = malloc (max_rows * sizeof (tiposorteo));
 
-  store =
+store =
     gtk_list_store_new (NUM_COLS, G_TYPE_UINT, G_TYPE_STRING, G_TYPE_UINT,
 			G_TYPE_UINT, G_TYPE_UINT, G_TYPE_UINT, G_TYPE_UINT,
 			G_TYPE_UINT, G_TYPE_UINT, G_TYPE_UINT);
 
-  moverse_en_tabla ("historico", vectorsorteos);
+moverse_en_tabla ("historico", vectorsorteos);
 
-  for (int a = 0; a < max_rows; a++)
-    {
+for (int a = 0; a < max_rows; a++)    {
       gtk_list_store_append (store, &iter);
       gtk_list_store_set (store, &iter, COL_NUM, vectorsorteos[a].id,
 			  COL_FECHA, vectorsorteos[a].fecha, COL_ONE,
@@ -54,16 +53,14 @@ static GtkTreeModel * create_and_fill_model (void)
 			  COL_SIX, vectorsorteos[a].a6, COL_CO,
 			  vectorsorteos[a].co, COL_RE, vectorsorteos[a].re,
 			  -1);
-    }
+}
 
-  free (vectorsorteos);
-  return GTK_TREE_MODEL (store);
+free (vectorsorteos);
+return GTK_TREE_MODEL (store);
 }
 
 
-static GtkWidget *
-create_view_and_model (void)
-{
+static GtkWidget * create_view_and_model (void) {
   GtkCellRenderer *renderer;
   GtkTreeModel *model;
   GtkWidget *view;
@@ -156,11 +153,9 @@ create_view_and_model (void)
   return view;
 }
 
-int main (int argc, char **argv)
-{
+int main (int argc, char **argv) {
   GtkWidget *window;
   GtkWidget *view;
-
   GtkWidget *vbox;
   GtkWidget *sw;
 
@@ -173,7 +168,7 @@ int main (int argc, char **argv)
   g_signal_connect (window, "delete_event", gtk_main_quit, NULL);	
   view = create_view_and_model ();
 
-   vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 15);
+  vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 15);
   gtk_container_add (GTK_CONTAINER (window), vbox);
 
   gtk_box_pack_start (GTK_BOX (vbox),
