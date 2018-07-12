@@ -27,8 +27,7 @@ enum
   COL_RE,
   NUM_COLS
 };
-static GtkTreeModel *
-create_and_fill_model (void)
+static GtkTreeModel * create_and_fill_model (void)
 {
   GtkListStore *store;
   GtkTreeIter iter;
@@ -157,8 +156,7 @@ create_view_and_model (void)
   return view;
 }
 
-int
-main (int argc, char **argv)
+int main (int argc, char **argv)
 {
   GtkWidget *window;
   GtkWidget *view;
