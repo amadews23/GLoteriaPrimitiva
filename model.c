@@ -14,25 +14,19 @@
 #include <string.h>
 #include <stdlib.h>
 
-int
-es_sql_ok (int resultado_consulta)
-{
-  char *err_msg = 0;
+int es_sql_ok (int resultado_consulta) {
 
-  if (resultado_consulta != SQLITE_OK)
-    {
+  char *err_msg = 0;
+  if (resultado_consulta != SQLITE_OK)  {
       fprintf (stderr, "SQL error: %s\n", err_msg);
       return -1;
-    }
-  else
-    {
+  } else {
       return 0;
-    }
+  }
 }
 
-int
-cuantos_rows (char *tabla)
-{
+int cuantos_rows (char *tabla) {
+ 
   char *sql2;
   int n_rows = -1;
   sqlite3 *db;
@@ -46,33 +40,26 @@ cuantos_rows (char *tabla)
   int rc = sqlite3_open ("gold.db", &db);
   sprintf (sql2, "SELECT count(*) FROM %s", tabla);
 
-  if (es_sql_ok (rc) == 0)
-    {
+  if (es_sql_ok (rc) == 0) {
       rc = sqlite3_prepare_v2 (db, sql2, 1000, &res, &tail);
-    }
-  else
-    {
+  }
+  else {
       printf ("No se encuentra bd\n");
-    }
-  if (es_sql_ok (rc) == 0)
-    {
+  }
+  if (es_sql_ok (rc) == 0) {
       sqlite3_step (res);
-
       n_rows = sqlite3_column_int (res, 0);
-    }
-  else
-    {
+  }
+  else {
       printf ("No se pudo ejecutar la consulta\n");
-    }
+  }
 
   sqlite3_close (db);
   free (sql2);
   return n_rows;
 }
 			       //Usando estructura como vector,?¿Es correcto?
-int
-moverse_en_tabla (char *tabla, tipovectorsorteos vectorsorteos)
-{
+int moverse_en_tabla (char *tabla, tipovectorsorteos vectorsorteos) {
   char *sql;
   sqlite3 *db;
   sqlite3_stmt *res;
@@ -85,25 +72,18 @@ moverse_en_tabla (char *tabla, tipovectorsorteos vectorsorteos)
 
   int rc = sqlite3_open ("gold.db", &db);
 
+  if (es_sql_ok (rc) == 0) {
 
-  if (es_sql_ok (rc) == 0)
-    {
+    rc = sqlite3_prepare_v2 (db, sql, 1000, &res, &tail);
 
-      rc = sqlite3_prepare_v2 (db, sql, 1000, &res, &tail);
-
-    }
-
-  else
-    {
+ } else {
 
       printf ("No fue posible mostrar resultados\n");
-    }
-  /* if rc=.... */
+ }
+ /* if rc=.... */
 
-  if (es_sql_ok (rc) == 0)
-    {
-      while (sqlite3_step (res) == SQLITE_ROW)
-	{
+ if (es_sql_ok (rc) == 0)  {
+      while (sqlite3_step (res) == SQLITE_ROW) {
 
 	  printf ("Numero de Sorteo: %i | ", sqlite3_column_int (res, 0));
 	  printf ("Fecha: %s \n", sqlite3_column_text (res, 1));
@@ -130,9 +110,7 @@ moverse_en_tabla (char *tabla, tipovectorsorteos vectorsorteos)
 
 	  a++;
 	}
-    }
-  else
-    {
+    } else {
       printf ("No fue posible mostrar resultados\n");
     }
   sqlite3_close (db);
