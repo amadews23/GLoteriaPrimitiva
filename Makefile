@@ -31,7 +31,6 @@ TARGET  = main
 # Please refer to the make manual for additional information.
 # The manual for GNU Make is avaliable at http://www.gnu.org
 #
-# Martin Horauer (horauer@technikum-wien.at)
 #-------------------------------------------------------------
 
 #-------------------------------------------------------------
